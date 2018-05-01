@@ -60,6 +60,12 @@
     <Compile Include="RLC_Compute.Designer.cs">
       <DependentUpon>RLC_Compute.cs</DependentUpon>
     </Compile>
+    <Compile Include="WaveCompare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaveCompare.Designer.cs">
+      <DependentUpon>WaveCompare.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -74,6 +80,9 @@
     </Compile>
     <EmbeddedResource Include="RLC_Compute.resx">
       <DependentUpon>RLC_Compute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaveCompare.resx">
+      <DependentUpon>WaveCompare.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

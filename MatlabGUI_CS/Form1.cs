@@ -319,9 +319,16 @@ namespace MatlabGUI_CS
         }
 
 
-        // 按钮[OpenRLC_bt] 作用: 开启RLC计算的窗口
+        // 按钮[OpenRLC_btn] 作用: 开启RLC计算的窗口
         private void OpenRLC_btn_Click(object sender, EventArgs e) {
             RLC_Compute form = new RLC_Compute();
+            form.Show();
+        }
+
+
+        // 按钮[OpenCmp_btn] 作用: 开启波形比较的窗口
+        private void OpenCmp_btn_Click(object sender, EventArgs e) {
+            WaveCompare form = new WaveCompare();
             form.Show();
         }
 
@@ -529,5 +536,6 @@ namespace MatlabGUI_CS
             }
 
         }
+
     }
 }
