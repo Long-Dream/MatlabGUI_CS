@@ -121,7 +121,7 @@ namespace MatlabGUI_CS
         }
 
         // 辅助函数：设置给定 chart 控件的X轴和Y轴的坐标的最大最小值，同时清空 Series, 并更换 ChartArea
-        private void setChartMinAndMax_ClearSeriesAndResetChartArea(Chart chart, double Xmax, double Xmin) {
+        public static void setChartMinAndMax_ClearSeriesAndResetChartArea(Chart chart, double Xmax, double Xmin) {
             chart.Series.Clear();
 
             // 每次绘图都来更换新的 ChartArea
@@ -148,12 +148,15 @@ namespace MatlabGUI_CS
         /**
          * 关键辅助函数：传入double[,]数据，将其绘制到指定图表中
          * 
-         * @param double[,] sourceArr   —— 数据来源
-         * @param int index             —— 所需要的数据在数组中的维数(第0维默认是时间)
+         * @param double[,] sourceArr       —— 数据来源
+         * @param int index                 —— 所需要的数据在数组中的维数(第0维默认是时间)
+         * @param Chart chartName           —— 所需要传入数据的图表
+         * @param string seriesName = ""    —— 绘制出的 series 的名称
+         * @param double offset             —— 时间的 offset
          * 
-         * @return double[,]            —— 从 matlab 引擎中读取到的数组
+         * @return double[,]                —— 从 matlab 引擎中读取到的数组
          */
-        public static double[,] drawToChart (double[,] sourceArr, int index, Chart chartName, string seriesName = "") {
+        public static double[,] drawToChart (double[,] sourceArr, int index, Chart chartName, string seriesName = "", double offset = 0) {
 
             Series currentSeries = new Series(seriesName);
             currentSeries.ChartType = SeriesChartType.Spline;
@@ -165,7 +168,7 @@ namespace MatlabGUI_CS
             int step = Main.calculateStep(length);
 
             for (int i = 1; i < length; i += step) {
-                currentSeries.Points.AddXY(sourceArr[i, 0], sourceArr[i, index]);
+                currentSeries.Points.AddXY(sourceArr[i, 0] + offset, sourceArr[i, index]);
             }
             chartName.Series.Add(currentSeries);
 
@@ -173,6 +176,8 @@ namespace MatlabGUI_CS
         }
 
         // 辅助函数：确定循环步长
+        // 确定方法：步长为  (点数 / 2500) 的向上取整
+        // 如有 4800 个点，则会绘制 4800 次（步长为 1 ）；如有 5100 点，则会绘制 2550 次（步长为 2 ）
         private static int calculateStep(int length, int num = 2500) {
             int step = 1;   // 循环的步长
             // 对于点的数量大于 一定数据 的数组进行优化
