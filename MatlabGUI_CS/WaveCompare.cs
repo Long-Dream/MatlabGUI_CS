@@ -46,17 +46,23 @@ namespace MatlabGUI_CS {
             public string[] cmpColDescription;
         }
 
+        // 【强调！】  此处的 CurrentArr 与 CurrentDetail 随着选取的 csv 文件的变化而变化
+        //             与当前所显示图像无必然联系 
         public double[,] CurrentArr1;
         public double[,] CurrentArr2;
         WaveDetail CurrentDetail1;
         WaveDetail CurrentDetail2;
+        // 【强调！】  此处的 CurrentConfig 应跟随图像的变化而变化，并应与当前所显示图像严格绑定
         CmpConfig CurrentConfig;
+
+        // 将会在窗口中显示的 Chart
         Chart[] charts = new Chart[20];
 
         public WaveCompare() {
             InitializeComponent();
         }
 
+        // 按钮[SelectCSVFile_btn] 作用: 选择 csv 文件
         private void SelectCSVFile_btn_Click(object sender, EventArgs e) {
             string csvPathName = GetCSVFilePathName();
             if (csvPathName == "") return;
@@ -159,6 +165,7 @@ namespace MatlabGUI_CS {
         // 按钮[StartCompare_btn] 作用：验证所有已输入数据的合法性，并开始进行比较
         private void StartCompare_btn_Click(object sender, EventArgs e) {
 
+            // 验证合法性
             if (checkConfig(ref CurrentConfig)) {
 
                 // 在生成新的 Chart 图表之前删去所有已生成的 Chart
@@ -182,13 +189,12 @@ namespace MatlabGUI_CS {
                     charts[i].Visible = i == 0 ? true : false;
                 }
 
+                // 在第一次生成图表之后，就可以将控制图表显示的按钮置为可用了
+                toLeft_btn.Enabled = true;
+                toRight_btn.Enabled = true;
+                CmpCol_DGV.Columns[3].Visible = true;
 
             }
-
-            
-
-
-
         }
 
         // 辅助函数：验证目前所有已输入数据的合法性，合法则进行设置的存储，并返回 true；不合法则进行错误提示，并返回 false
@@ -326,32 +332,62 @@ namespace MatlabGUI_CS {
         }
 
         // 辅助函数：根据给定 图像序号 或 移位数 更改图像的显示
-        private void changeViewChart(int index, int offset = 0) {
+        //           在传入 图像序号 时，若
+        private bool changeViewChart(int index, int offset = 0) {
+
+            // 目前在窗口中存在的图像（无视其 visible）
+            int currentTotalCharts = CurrentConfig.cmpColArr.GetLength(0);
 
             // 先获取目前正在显示的 chart 的序号
-            int exVisiableChartIndex = -10;
-            for (int i = 0; i < charts.GetLength(0); i++) {
+            int exVisibleChartIndex = -10;
+            for (int i = 0; i < currentTotalCharts; i++) {
                 if (charts[i].Visible == true) {
-                    exVisiableChartIndex = i;
+                    exVisibleChartIndex = i;
                     break;
                 }
             }
 
+            // 若当前无任何正在显示的波形，返回 false （此时应该是程序刚开始运行，还没有绘制任何图像而导致的）
+            if (exVisibleChartIndex < 0) return false;
+
             // 判断移位值，若移位值不为 0 ，则根据移位值更改 chart 的显示
             if(offset != 0) {
-                exVisiableChartIndex += offset;
-                if(exVisiableChartIndex == -1) {
-                    exVisiableChartIndex = CurrentConfig.cmpColArr.GetLength(0) - 1;
-                } else if (exVisiableChartIndex == CurrentConfig.cmpColArr.GetLength(0)) {
-                    exVisiableChartIndex = 0;
+                exVisibleChartIndex += offset;
+                if(exVisibleChartIndex == -1) {
+                    exVisibleChartIndex = currentTotalCharts - 1;
+                } else if (exVisibleChartIndex == currentTotalCharts) {
+                    exVisibleChartIndex = 0;
                 }
 
-                for (int i = 0; i < CurrentConfig.cmpColArr.GetLength(0); i++) {
-                    charts[i].Visible = i == exVisiableChartIndex ? true : false;
+                for (int i = 0; i < currentTotalCharts; i++) {
+                    charts[i].Visible = i == exVisibleChartIndex ? true : false;
                 }
 
                 // 此处特别注意：当 offset 为赋值为不为0的整数，则此函数仅根据 offset 进行变化，而与 index 无关
-                return;
+                // 所以这里要返回
+                return true;
+            }
+
+            // 判断 指定图像序号:   若当前显示的图像并没有给定的序号，则返回 false
+            //                      若有，则将其他的图像的 visible 置为 false，然后仅将指定序号置为 true
+            if(index > currentTotalCharts - 1) {
+                return false;
+            }
+
+            for(int i = 0; i < currentTotalCharts; i++) {
+                charts[i].Visible = i == index ? true : false;
+            }
+            return true;
+        }
+
+        // 此处用于编辑按钮事件
+        private void CmpCol_DGV_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+
+            // 为了判断此处点击的是否是按钮，需要进行一些额外判断（当前行数 >= 0，当前列数 == 3）
+            if(e.RowIndex >= 0 && e.ColumnIndex == 3) {
+                if(!changeViewChart(e.RowIndex)) {
+                    MessageBox.Show("无法显示该行所对应的波形，可能原因：\n\r     1. 点击了最后一行的按钮\n\r     2. 添加了新的比较行而没有重新绘制波形");
+                }
             }
         }
     }

@@ -93,7 +93,7 @@
             this.Title.Name = "Title";
             this.Title.Size = new System.Drawing.Size(604, 50);
             this.Title.TabIndex = 1;
-            this.Title.Text = "失超保护开关的仿真_Demo_v0.06";
+            this.Title.Text = "失超保护开关的仿真_Demo_v0.07";
             // 
             // chart1
             // 
