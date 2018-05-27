@@ -25,10 +25,10 @@ namespace MatlabGUI_CS {
         // 参与比较的设置信息
         struct CmpConfig {
 
-            // 波形1 的起始时间
+            // 文件1 的起始时间
             public double cmpStartTime1;
 
-            // 波形2 的起始时间
+            // 文件2 的起始时间
             public double cmpStartTime2;
 
             // 进行比较的波形所持续的时间
@@ -40,6 +40,14 @@ namespace MatlabGUI_CS {
             // 0 号元素代表第一个 csv 文件中要比较的数据列的序号，1 号元素代表第二个 csv 文件中要比较的数据列的序号
             // 该数组的行数则为要进行比较的波形的组数
             public int[,] cmpColArr;
+
+            // 每一组要参与比较的波形的文件1的波形的增益
+            // 其长度与 cmpColArr 的行数一致
+            public double[] gain1;
+
+            // 每一组要参与比较的波形的文件2的波形的增益
+            // 其长度与 cmpColArr 的行数一致
+            public double[] gain2;
 
             // 每一组要参与比较的波形的描述的字符串数组
             // 其长度与 cmpColArr 的行数一致
@@ -60,6 +68,9 @@ namespace MatlabGUI_CS {
 
         public WaveCompare() {
             InitializeComponent();
+
+            // 奇巧淫技：修正窗体的宽度
+            this.Width = chart1.Location.X + chart1.Size.Width + 45;
         }
 
         // 按钮[SelectCSVFile_btn] 作用: 选择 csv 文件
@@ -129,9 +140,28 @@ namespace MatlabGUI_CS {
             // 测试csv的行数和列数
             StreamReader fileTester = new StreamReader(filePathName);
             string testStr = "";
-            int row = 0, col = 0;
+            int row = 0, col = 0, passLine = 0;
             while (testStr != null) {
                 testStr = fileTester.ReadLine();
+
+                // 此处用于判断数据来源是否为示波器
+                // 来源于示波器的标准：   第一行开头字符串为 Model
+                // 数据列开始的标准：     第一行开头字符串为 Time 
+                if(row == 0) {
+                    if (testStr.StartsWith("Model")) {
+                        while (true) {
+                            testStr = fileTester.ReadLine();
+                            passLine++;
+                            if (testStr.StartsWith("TIME")) {
+                                testStr = fileTester.ReadLine();
+                                passLine++;
+                                break;
+                            }
+                        }
+                        row--;
+                    }
+                }
+
                 if (col == 0) col = testStr.Split(',').Length;
                 row++;
             }
@@ -149,6 +179,12 @@ namespace MatlabGUI_CS {
 
             while (strLine != null) {
                 strLine = fileReader.ReadLine();
+
+                if(passLine != 0) {
+                    passLine--;
+                    continue;
+                }
+
                 if (strLine != null && strLine.Length > 0) {
                     string[] tempStrArr = strLine.Split(',');
                     for(int j = 0; j < tempStrArr.Length; j++) {
@@ -182,8 +218,8 @@ namespace MatlabGUI_CS {
                     Main.setChartMinAndMax_ClearSeriesAndResetChartArea(charts[i], CurrentConfig.cmpPeriod, 0);
 
                     // 往刚刚生成的 chart 里面添加数据
-                    Main.drawToChart(CurrentArr1, CurrentConfig.cmpColArr[i, 0], charts[i], "波形1 第" + CurrentConfig.cmpColArr[i, 0] + "列数据", -CurrentConfig.cmpStartTime1);
-                    Main.drawToChart(CurrentArr2, CurrentConfig.cmpColArr[i, 1], charts[i], "波形2 第" + CurrentConfig.cmpColArr[i, 1] + "列数据", -CurrentConfig.cmpStartTime2);
+                    Main.drawToChart(CurrentArr1, CurrentConfig.cmpColArr[i, 0], charts[i], "波形文件1 第" + CurrentConfig.cmpColArr[i, 0] + "列数据", -CurrentConfig.cmpStartTime1, CurrentConfig.gain1[i]);
+                    Main.drawToChart(CurrentArr2, CurrentConfig.cmpColArr[i, 1], charts[i], "波形文件2 第" + CurrentConfig.cmpColArr[i, 1] + "列数据", -CurrentConfig.cmpStartTime2, CurrentConfig.gain2[i]);
 
                     // 设置仅第一个可见，其余不可见
                     charts[i].Visible = i == 0 ? true : false;
@@ -206,19 +242,23 @@ namespace MatlabGUI_CS {
                 return false;
             }
 
-            // 判断2-1：判断起始时间和持续时间输入是否合法
+            // 判断2-1：判断起始时间和持续时间， 倍数输入是否合法
             double? cmpStartTime1_W = Main.checkTextbox(cmpStartTime1_TB, cmpStartTime1_Label);
             double? cmpStartTime2_W = Main.checkTextbox(cmpStartTime2_TB, cmpStartTime2_Label);
             double? cmpPeriod_W = Main.checkTextbox(cmpPeriod_TB, cmpPeriod_Label);
+
             if(cmpStartTime1_W == null || cmpStartTime2_W == null || cmpPeriod_W == null) {
                 return false;
             }
+
+            
 
             // 判断2-2：判断起始时间和持续时间是否在时间范围内
             double cmpStartTime1 = Convert.ToDouble(cmpStartTime1_W);
             double cmpStartTime2 = Convert.ToDouble(cmpStartTime2_W);
             double cmpPeriod = Convert.ToDouble(cmpPeriod_W);
-            if(cmpPeriod <= 0) {
+
+            if (cmpPeriod <= 0) {
                 MessageBox.Show("进行比较的时间范围必须大于0，请修改之后重试");
                 return false;
             }
@@ -232,6 +272,8 @@ namespace MatlabGUI_CS {
             }
 
             // 判断3-1：判断要进行比较的对应列输入是否合法
+
+            // colCount 是要进行比较的波形的行数
             int colCount = CmpCol_DGV.Rows.Count - 1;
             if (colCount == 0) {
                 MessageBox.Show("应该输入要进行比较的数据列，请修改之后重试");
@@ -239,8 +281,12 @@ namespace MatlabGUI_CS {
             }
 
             int[,] cmpColArr = new int[colCount, 2];
+            double[] gain1 = new double[colCount];
+            double[] gain2 = new double[colCount];
             string[] cmpColDescription = new String[colCount];
             for(int i = 0; i < colCount; i++) {
+
+                // 设置要进行比较的数据列
                 for(int j = 0; j < 2; j++) {
                     int temp;
                     try {
@@ -253,11 +299,16 @@ namespace MatlabGUI_CS {
                     cmpColArr[i, j] = temp;
                 }
 
+                // 设置要进行比较的数据列的增益(错误处理略)
+                // 若用户不进行设置，则虽然上面显示的是1，但实际上是 null，所以需要进行特别处理
+                gain1[i] = CmpCol_DGV.Rows[i].Cells[2].Value == null ? 1 : Convert.ToDouble(CmpCol_DGV.Rows[i].Cells[2].Value);
+                gain2[i] = CmpCol_DGV.Rows[i].Cells[3].Value == null ? 1 : Convert.ToDouble(CmpCol_DGV.Rows[i].Cells[3].Value);
+
                 // 设置描述的读取，对为赋值的描述赋予默认值
-                if (CmpCol_DGV.Rows[i].Cells[2].Value == null) {
+                if (CmpCol_DGV.Rows[i].Cells[4].Value == null) {
                     cmpColDescription[i] = "比较" + (i + 1);
                 } else {
-                    cmpColDescription[i] = CmpCol_DGV.Rows[i].Cells[2].Value.ToString();
+                    cmpColDescription[i] = CmpCol_DGV.Rows[i].Cells[4].Value.ToString();
                 }
             }
 
@@ -278,11 +329,13 @@ namespace MatlabGUI_CS {
             config.cmpStartTime2 = cmpStartTime2;
             config.cmpPeriod = cmpPeriod;
             config.cmpColArr = cmpColArr;
+            config.gain1 = gain1;
+            config.gain2 = gain2;
             config.cmpColDescription = cmpColDescription;
 
             // 补充未填写的比较描述
-            for(int i = 0; i < cmpColDescription.Length; i++) {
-                CmpCol_DGV.Rows[i].Cells[2].Value = cmpColDescription[i];
+            for (int i = 0; i < cmpColDescription.Length; i++) {
+                CmpCol_DGV.Rows[i].Cells[4].Value = cmpColDescription[i];
             }
 
             return true;
@@ -292,6 +345,15 @@ namespace MatlabGUI_CS {
         // 需要传入的参数： description —— 目前进行比较的波形的描述
         //                  index —— 该比较波形在波形比较队列中的序号
         private void creatWaveCmpChart(string description, int index) {
+
+            // 此处使用奇巧淫技来使生成的图像位置相对
+            // 进行比较的对象是图像左边的 “第三步” 的 GroupBox
+            int width = Convert.ToInt32(groupBox3.Size.Width * 1.6);
+            int height = Convert.ToInt32(groupBox3.Size.Height);
+            int X = Convert.ToInt32(groupBox3.Location.X + groupBox3.Size.Width + 15);
+            int Y = Convert.ToInt32(groupBox3.Location.Y + 10);
+
+
 
             // 基础控件生成
             Chart chart = new Chart();
@@ -304,9 +366,9 @@ namespace MatlabGUI_CS {
             legend.Name = "legend";
             legend.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
             chart.Legends.Add(legend);
-            chart.Location = new System.Drawing.Point(891, 74);
+            chart.Location = new System.Drawing.Point(X, Y);
             chart.Name = "chart1";
-            chart.Size = new System.Drawing.Size(859, 557);
+            chart.Size = new System.Drawing.Size(width, height);
             chart.TabIndex = 12;
             chart.Text = "chart1";
             title.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

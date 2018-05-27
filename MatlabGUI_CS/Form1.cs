@@ -22,6 +22,7 @@ namespace MatlabGUI_CS
         // 全局变量，存储着当前的仿真数据
         public double[,] CurrentResultArr;
 
+
         public Main() {
             InitializeComponent();
 
@@ -29,7 +30,10 @@ namespace MatlabGUI_CS
             matlab = initMatlabEp();
 
             // 在程序运行的一开始就设置默认值
-            setDefault();
+            getDefault();
+
+            // 奇巧淫技：修正窗体的宽度
+            this.Width = chart3.Location.X + chart3.Size.Width + 45;
         }
 
         #region REGION - 关于直接操作 matlab 引擎的辅助函数
@@ -56,11 +60,17 @@ namespace MatlabGUI_CS
 
         #endregion
 
-        // 辅助函数：读取需要设定的参数，并返回一个合适的结构体
+
+        // 关键辅助函数：读取需要设定的参数，并返回一个合适的结构体
         public struct ParaItems {
-            public double Source_LorC;
-            public double VCB_C;
-            public double Discharge_R;
+
+            public double Source_LorC;      // LC源_初始电容电压(V) 或 LC源_初始电感电流(A)
+            public double VCB_C;            // VCB过零_初始电容电压(V)
+            public double Discharge_R;      // 移能电阻_阻值(Ω)
+            public double ThyristorTime;    // 晶闸管开断时间
+
+            public double ZeroCrossing_C;   // 过零回路 电容
+            public double ZeroCrossing_L;   // 过零回路 电感
 
             // 所获取的数据是否合法
             public bool isValid;
@@ -73,36 +83,79 @@ namespace MatlabGUI_CS
             tempResult.Source_LorC = 0;
             tempResult.VCB_C = 0;
             tempResult.Discharge_R = 0;
+            tempResult.ZeroCrossing_C = 0;
+            tempResult.ZeroCrossing_L = 0;
+            tempResult.ThyristorTime = 0;
 
-            double? Source_LorC, VCB_C, Discharge_R;
+            double? Source_LorC, VCB_C, Discharge_R, ZeroCrossing_C, ZeroCrossing_L, ZeroCrossing_F, ThyristorTime;
 
             // 获取所输入的数据
             Source_LorC = checkTextbox(Source_LorC_TB, Source_LorC_Label);
             VCB_C = checkTextbox(VCB_C_TB, VCB_C_Label);
             Discharge_R = checkTextbox(Discharge_R_TB, Discharge_R_Label);
+            ZeroCrossing_C = checkTextbox(ZeroCrossing_C_TB, ZeroCrossing_C_Label, false);
+            ZeroCrossing_L = checkTextbox(ZeroCrossing_L_TB, ZeroCrossing_L_Label, false);
+            ZeroCrossing_F = checkTextbox(ZeroCrossing_F_TB, ZeroCrossing_F_Label, false);
+            ThyristorTime = checkTextbox(ThyristorTime_TB, ThyristorTime_Label, false);
 
             // 判断合法性
-            if (Source_LorC == null || VCB_C == null || Discharge_R == null) {
+            if (Source_LorC == null || VCB_C == null || Discharge_R == null || ThyristorTime == null) {
                 tempResult.isValid = false;
                 return tempResult;
+            }
+
+            // 对于过零回路相关参数的设置，三选二即可
+            if ((ZeroCrossing_C == null && ZeroCrossing_L == null) ||
+                (ZeroCrossing_C == null && ZeroCrossing_F == null) ||
+                (ZeroCrossing_L == null && ZeroCrossing_F == null)) {
+                    MessageBox.Show("过零回路相关参数中，请至少填入两个有效值", " 输入参数错误！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tempResult.isValid = false;
+                    return tempResult;
+            }
+
+            // 处理相关参数
+            // 相关公式： f=1/(2π*√(LC))
+            if (ZeroCrossing_C != null && ZeroCrossing_L != null) {
+                double C = Convert.ToDouble(ZeroCrossing_C) / 1e3;
+                double L = Convert.ToDouble(ZeroCrossing_L) / 1e6;
+
+                ZeroCrossing_F = 1 / (2 * Math.PI * Math.Sqrt(C * L));
+                ZeroCrossing_F_TB.Text = ZeroCrossing_F.ToString();
+            }
+            if (ZeroCrossing_C != null && ZeroCrossing_F != null) {
+                double C = Convert.ToDouble(ZeroCrossing_C) / 1e3;
+                ZeroCrossing_L = Math.Pow((1 / (2 * Math.PI * Convert.ToDouble(ZeroCrossing_F))), 2) / C * 1e6;
+                ZeroCrossing_L_TB.Text = ZeroCrossing_L.ToString();
+            }
+            if (ZeroCrossing_L != null && ZeroCrossing_F != null) {
+                double L = Convert.ToDouble(ZeroCrossing_L) / 1e6;
+                ZeroCrossing_C = Math.Pow((1 / (2 * Math.PI * Convert.ToDouble(ZeroCrossing_F))), 2) / L * 1e3;
+                ZeroCrossing_C_TB.Text = ZeroCrossing_C.ToString();
             }
 
             tempResult.Source_LorC = Convert.ToDouble(Source_LorC);
             tempResult.VCB_C = Convert.ToDouble(VCB_C);
             tempResult.Discharge_R = Convert.ToDouble(Discharge_R);
+            tempResult.ThyristorTime = Convert.ToDouble(ThyristorTime);
+
+            tempResult.ZeroCrossing_C = Convert.ToDouble(ZeroCrossing_C) / 1e3;
+            tempResult.ZeroCrossing_L = Convert.ToDouble(ZeroCrossing_L) / 1e6;
+
             tempResult.isValid = true;
 
             return tempResult;
         }
 
         // 辅助函数：判断指定文本框的内容是否为合法的 double 值，若是，则返回值, 若不是， 则返回 null, 并进行错误提示
-        public static double? checkTextbox(TextBox TextboxName, Label LabelName) {
+        public static double? checkTextbox(TextBox TextboxName, Label LabelName, bool messageFlag = true) {
             double temp;
             try {
                 temp = Convert.ToDouble(TextboxName.Text);
             }
             catch (Exception) {
-                MessageBox.Show( "请检查输入的数据：" + LabelName.Text, " 输入参数错误！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (messageFlag) {
+                    MessageBox.Show("请检查输入的数据：" + LabelName.Text, " 输入参数错误！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 return null;
             }      
             return temp;
@@ -154,10 +207,11 @@ namespace MatlabGUI_CS
          * @param Chart chartName           —— 所需要传入数据的图表
          * @param string seriesName = ""    —— 绘制出的 series 的名称
          * @param double offset             —— 时间的 offset
+         * @param double gain               —— 数据的增益，会在绘制的时候与 sourceArr 中的数相乘然后绘制
          * 
          * @return double[,]                —— 从 matlab 引擎中读取到的数组
          */
-        public static double[,] drawToChart (double[,] sourceArr, int index, Chart chartName, string seriesName = "", double offset = 0) {
+        public static double[,] drawToChart (double[,] sourceArr, int index, Chart chartName, string seriesName = "", double offset = 0, double gain = 1) {
 
             Series currentSeries = new Series(seriesName);
             currentSeries.ChartType = SeriesChartType.Spline;
@@ -169,7 +223,7 @@ namespace MatlabGUI_CS
             int step = Main.calculateStep(length);
 
             for (int i = 1; i < length; i += step) {
-                currentSeries.Points.AddXY(sourceArr[i, 0] + offset, sourceArr[i, index]);
+                currentSeries.Points.AddXY(sourceArr[i, 0] + offset, sourceArr[i, index] * gain);
             }
             chartName.Series.Add(currentSeries);
 
@@ -231,8 +285,17 @@ namespace MatlabGUI_CS
             // 提供过零电流的LC振荡回路 的初始电容电压
             public double initVCB_C;
 
+            // 提供过零电流的LC振荡回路 电容值
+            public double ZeroCrossing_C;
+
+            // 提供过零电流的LC振荡回路 电感值
+            public double ZeroCrossing_L;
+
             // 移能电阻 阻值
             public double Discharge_R;
+
+            // 晶闸管开断时间
+            public double ThyristorTime;
         }
         private void StartSimulink_btn_Click(object sender, EventArgs e) {
 
@@ -248,7 +311,7 @@ namespace MatlabGUI_CS
                 dataSendedToMatlab.isLCSource = 1;
                 dataSendedToMatlab.isLSource = 0;
                 dataSendedToMatlab.initSourceC = dataFromTextBox.Source_LorC;
-                dataSendedToMatlab.initSourceL = 0;
+                dataSendedToMatlab.initSourceL = 0.01;
             }
             else {
                 dataSendedToMatlab.isLCSource = 0;
@@ -257,7 +320,10 @@ namespace MatlabGUI_CS
                 dataSendedToMatlab.initSourceL = dataFromTextBox.Source_LorC;
             }
             dataSendedToMatlab.initVCB_C = dataFromTextBox.VCB_C;
+            dataSendedToMatlab.ZeroCrossing_C = dataFromTextBox.ZeroCrossing_C;
+            dataSendedToMatlab.ZeroCrossing_L = dataFromTextBox.ZeroCrossing_L;
             dataSendedToMatlab.Discharge_R = dataFromTextBox.Discharge_R;
+            dataSendedToMatlab.ThyristorTime = dataFromTextBox.ThyristorTime;
 
 
             // 仿真开始前禁用按钮
@@ -290,16 +356,19 @@ namespace MatlabGUI_CS
             matlab.Execute("initSourceC = " + data.initSourceC + ";");
             matlab.Execute("initSourceL = " + data.initSourceL + ";");
             matlab.Execute("initVCB_C = " + data.initVCB_C + ";");
+            matlab.Execute("ZeroCrossing_C = " + data.ZeroCrossing_C + ";");
+            matlab.Execute("ZeroCrossing_L = " + data.ZeroCrossing_L + ";");
             matlab.Execute("Discharge_R = " + data.Discharge_R + ";");
+            matlab.Execute("ThyristorTime = " + data.ThyristorTime + ";");
 
             // 进行仿真
             matlab.Execute("sim('" + modelName + "');");
 
             // 设置坐标轴
-            setChartMinAndMax_ClearSeriesAndResetChartArea(chart1, 0.01, 0);
-            setChartMinAndMax_ClearSeriesAndResetChartArea(chart2, 0.00515, 0.00495);
-            setChartMinAndMax_ClearSeriesAndResetChartArea(chart3, 0.01, 0);
-            setChartMinAndMax_ClearSeriesAndResetChartArea(chart4, 0.00515, 0.00495);
+            setChartMinAndMax_ClearSeriesAndResetChartArea(chart1, 0.012, 0);
+            setChartMinAndMax_ClearSeriesAndResetChartArea(chart2, data.ThyristorTime + 0.00015, data.ThyristorTime - 0.00005);
+            setChartMinAndMax_ClearSeriesAndResetChartArea(chart3, 0.012, 0);
+            setChartMinAndMax_ClearSeriesAndResetChartArea(chart4, data.ThyristorTime + 0.00015, data.ThyristorTime - 0.00005);
 
             // 读取仿真之后的数据
             CurrentResultArr = getArrayData("Results");
@@ -321,7 +390,7 @@ namespace MatlabGUI_CS
         private void toggleView_btn_Click(object sender, EventArgs e) {
             chart1.Visible = !chart1.Visible;
             chart3.Visible = !chart3.Visible;
-            toggleView_btn.Text = toggleView_btn.Text == "细致观察" ? "宏观展望" : "细致观察";
+            toggleView_btn.Text = toggleView_btn.Text == "显示换流附近波形" ? "显示整体波形" : "显示换流附近波形";
         }
 
 
@@ -341,10 +410,7 @@ namespace MatlabGUI_CS
 
         #region REGION - 构造函数参数设置默认值相关
 
-        public ParaItems currentDefault;
-
-
-        // 默认参数辅助函数：读取文本框参数，设置 currentDefault 使其等于当前文本框中的数据
+        // 默认参数辅助函数：读取文本框参数，设置默认值
         private int setDefault() {
             ParaItems tempResult = getItemsFromTextBox();
 
@@ -352,15 +418,32 @@ namespace MatlabGUI_CS
                 return -1;
             }
 
-            currentDefault = tempResult;
+            ConfigAppSettings.SetValue("Source_LorC", tempResult.Source_LorC.ToString());
+            ConfigAppSettings.SetValue("VCB_C", tempResult.VCB_C.ToString());
+            ConfigAppSettings.SetValue("Discharge_R", tempResult.Discharge_R.ToString());
+            ConfigAppSettings.SetValue("ThyristorTime", tempResult.ThyristorTime.ToString());
+
+            ConfigAppSettings.SetValue("ZeroCrossing_C", (tempResult.ZeroCrossing_C * 1e3).ToString());
+            ConfigAppSettings.SetValue("ZeroCrossing_L", (tempResult.ZeroCrossing_L * 1e6).ToString());
+
             return 0;
+        }
+
+        // 默认参数辅助函数：恢复默认值
+        private void getDefault() {
+            Source_LorC_TB.Text = ConfigAppSettings.GetValue("Source_LorC");
+            VCB_C_TB.Text = ConfigAppSettings.GetValue("VCB_C");
+            Discharge_R_TB.Text = ConfigAppSettings.GetValue("Discharge_R");
+            ZeroCrossing_C_TB.Text = ConfigAppSettings.GetValue("ZeroCrossing_C");
+            ZeroCrossing_L_TB.Text = ConfigAppSettings.GetValue("ZeroCrossing_L");
+            ThyristorTime_TB.Text = ConfigAppSettings.GetValue("ThyristorTime");
+
         }
 
         // 默认参数按钮[applyDefault_btn]函数：应用当前的默认值
         private void applyDefault_btn_Click(object sender, EventArgs e) {
-            Source_LorC_TB.Text = currentDefault.Source_LorC.ToString();
-            VCB_C_TB.Text = currentDefault.VCB_C.ToString();
-            Discharge_R_TB.Text = currentDefault.Discharge_R.ToString();
+
+            getDefault();
             MessageBox.Show("应用默认值成功！");
         }
 
@@ -542,6 +625,5 @@ namespace MatlabGUI_CS
             }
 
         }
-
     }
 }

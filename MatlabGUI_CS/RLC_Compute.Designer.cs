@@ -23,8 +23,8 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.label1 = new System.Windows.Forms.Label();
             this.RLC_GB = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,20 +51,33 @@
             this.RLC_F = new System.Windows.Forms.Label();
             this.RLC_Im = new System.Windows.Forms.Label();
             this.RLC_F_TB = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RLC2_Im2_TB = new System.Windows.Forms.TextBox();
+            this.RLC2_Im2 = new System.Windows.Forms.Label();
+            this.RLC_Result3_TB = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.RLC2_C_TB = new System.Windows.Forms.TextBox();
+            this.RLC2_C = new System.Windows.Forms.Label();
+            this.StartCompute3_btn = new System.Windows.Forms.Button();
+            this.RLC2_Im1_TB = new System.Windows.Forms.TextBox();
+            this.RLC2_T = new System.Windows.Forms.Label();
+            this.RLC2_Im1 = new System.Windows.Forms.Label();
+            this.RLC2_T_TB = new System.Windows.Forms.TextBox();
             this.RLC_GB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RLC_Chart)).BeginInit();
             this.RLC_GB2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(437, 35);
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(602, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(512, 52);
+            this.label1.Size = new System.Drawing.Size(429, 52);
             this.label1.TabIndex = 0;
-            this.label1.Text = "RLC振荡回路 参数计算工具";
+            this.label1.Text = "RLC电路 参数计算工具";
             // 
             // RLC_GB
             // 
@@ -88,7 +101,7 @@
             this.RLC_GB.Size = new System.Drawing.Size(1082, 556);
             this.RLC_GB.TabIndex = 0;
             this.RLC_GB.TabStop = false;
-            this.RLC_GB.Text = "已知RLC的计算";
+            this.RLC_GB.Text = "RLC——参数已知";
             // 
             // label2
             // 
@@ -144,11 +157,11 @@
             // 
             // RLC_Chart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.RLC_Chart.ChartAreas.Add(chartArea1);
-            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend1.Name = "Legend1";
-            this.RLC_Chart.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.RLC_Chart.ChartAreas.Add(chartArea2);
+            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend2.Name = "Legend1";
+            this.RLC_Chart.Legends.Add(legend2);
             this.RLC_Chart.Location = new System.Drawing.Point(208, 30);
             this.RLC_Chart.Name = "RLC_Chart";
             this.RLC_Chart.Size = new System.Drawing.Size(549, 488);
@@ -230,17 +243,17 @@
             this.RLC_GB2.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.RLC_GB2.Location = new System.Drawing.Point(1129, 114);
             this.RLC_GB2.Name = "RLC_GB2";
-            this.RLC_GB2.Size = new System.Drawing.Size(308, 556);
+            this.RLC_GB2.Size = new System.Drawing.Size(285, 556);
             this.RLC_GB2.TabIndex = 30;
             this.RLC_GB2.TabStop = false;
-            this.RLC_GB2.Text = "未知LC的计算";
+            this.RLC_GB2.Text = "LC——参数未知";
             // 
             // RLC_Result2_TB
             // 
             this.RLC_Result2_TB.Location = new System.Drawing.Point(25, 396);
             this.RLC_Result2_TB.Multiline = true;
             this.RLC_Result2_TB.Name = "RLC_Result2_TB";
-            this.RLC_Result2_TB.Size = new System.Drawing.Size(261, 122);
+            this.RLC_Result2_TB.Size = new System.Drawing.Size(244, 122);
             this.RLC_Result2_TB.TabIndex = 35;
             // 
             // label3
@@ -256,7 +269,7 @@
             // 
             this.RLC_C_init2_TB.Location = new System.Drawing.Point(27, 234);
             this.RLC_C_init2_TB.Name = "RLC_C_init2_TB";
-            this.RLC_C_init2_TB.Size = new System.Drawing.Size(259, 31);
+            this.RLC_C_init2_TB.Size = new System.Drawing.Size(222, 31);
             this.RLC_C_init2_TB.TabIndex = 2;
             this.RLC_C_init2_TB.Text = "10000";
             // 
@@ -271,9 +284,9 @@
             // 
             // StartCompute2_btn
             // 
-            this.StartCompute2_btn.Location = new System.Drawing.Point(25, 287);
+            this.StartCompute2_btn.Location = new System.Drawing.Point(25, 308);
             this.StartCompute2_btn.Name = "StartCompute2_btn";
-            this.StartCompute2_btn.Size = new System.Drawing.Size(261, 45);
+            this.StartCompute2_btn.Size = new System.Drawing.Size(224, 45);
             this.StartCompute2_btn.TabIndex = 3;
             this.StartCompute2_btn.Text = "开始计算";
             this.StartCompute2_btn.UseVisualStyleBackColor = true;
@@ -283,7 +296,7 @@
             // 
             this.RLC_Im_TB.Location = new System.Drawing.Point(25, 154);
             this.RLC_Im_TB.Name = "RLC_Im_TB";
-            this.RLC_Im_TB.Size = new System.Drawing.Size(261, 31);
+            this.RLC_Im_TB.Size = new System.Drawing.Size(224, 31);
             this.RLC_Im_TB.TabIndex = 1;
             this.RLC_Im_TB.Text = "1";
             // 
@@ -309,15 +322,135 @@
             // 
             this.RLC_F_TB.Location = new System.Drawing.Point(25, 74);
             this.RLC_F_TB.Name = "RLC_F_TB";
-            this.RLC_F_TB.Size = new System.Drawing.Size(261, 31);
+            this.RLC_F_TB.Size = new System.Drawing.Size(224, 31);
             this.RLC_F_TB.TabIndex = 0;
             this.RLC_F_TB.Text = "0.1";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.RLC2_Im2_TB);
+            this.groupBox1.Controls.Add(this.RLC2_Im2);
+            this.groupBox1.Controls.Add(this.RLC_Result3_TB);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.RLC2_C_TB);
+            this.groupBox1.Controls.Add(this.RLC2_C);
+            this.groupBox1.Controls.Add(this.StartCompute3_btn);
+            this.groupBox1.Controls.Add(this.RLC2_Im1_TB);
+            this.groupBox1.Controls.Add(this.RLC2_T);
+            this.groupBox1.Controls.Add(this.RLC2_Im1);
+            this.groupBox1.Controls.Add(this.RLC2_T_TB);
+            this.groupBox1.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox1.Location = new System.Drawing.Point(1430, 114);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(285, 556);
+            this.groupBox1.TabIndex = 36;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "RLC——参数未知";
+            // 
+            // RLC2_Im2_TB
+            // 
+            this.RLC2_Im2_TB.Location = new System.Drawing.Point(24, 256);
+            this.RLC2_Im2_TB.Name = "RLC2_Im2_TB";
+            this.RLC2_Im2_TB.Size = new System.Drawing.Size(224, 31);
+            this.RLC2_Im2_TB.TabIndex = 7;
+            // 
+            // RLC2_Im2
+            // 
+            this.RLC2_Im2.AutoSize = true;
+            this.RLC2_Im2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.RLC2_Im2.Location = new System.Drawing.Point(24, 233);
+            this.RLC2_Im2.Name = "RLC2_Im2";
+            this.RLC2_Im2.Size = new System.Drawing.Size(120, 20);
+            this.RLC2_Im2.TabIndex = 37;
+            this.RLC2_Im2.Text = "电流第二峰值(A)";
+            // 
+            // RLC_Result3_TB
+            // 
+            this.RLC_Result3_TB.Location = new System.Drawing.Point(21, 396);
+            this.RLC_Result3_TB.Multiline = true;
+            this.RLC_Result3_TB.Name = "RLC_Result3_TB";
+            this.RLC_Result3_TB.Size = new System.Drawing.Size(243, 125);
+            this.RLC_Result3_TB.TabIndex = 35;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(16, 368);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(88, 25);
+            this.label4.TabIndex = 34;
+            this.label4.Text = "计算结果";
+            // 
+            // RLC2_C_TB
+            // 
+            this.RLC2_C_TB.Location = new System.Drawing.Point(24, 58);
+            this.RLC2_C_TB.Name = "RLC2_C_TB";
+            this.RLC2_C_TB.Size = new System.Drawing.Size(224, 31);
+            this.RLC2_C_TB.TabIndex = 4;
+            this.RLC2_C_TB.Text = "40";
+            // 
+            // RLC2_C
+            // 
+            this.RLC2_C.AutoSize = true;
+            this.RLC2_C.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.RLC2_C.Location = new System.Drawing.Point(24, 35);
+            this.RLC2_C.Name = "RLC2_C";
+            this.RLC2_C.Size = new System.Drawing.Size(71, 20);
+            this.RLC2_C.TabIndex = 30;
+            this.RLC2_C.Text = "电容(mF)";
+            // 
+            // StartCompute3_btn
+            // 
+            this.StartCompute3_btn.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.StartCompute3_btn.Location = new System.Drawing.Point(21, 308);
+            this.StartCompute3_btn.Name = "StartCompute3_btn";
+            this.StartCompute3_btn.Size = new System.Drawing.Size(224, 45);
+            this.StartCompute3_btn.TabIndex = 8;
+            this.StartCompute3_btn.Text = "开始计算";
+            this.StartCompute3_btn.UseVisualStyleBackColor = true;
+            this.StartCompute3_btn.Click += new System.EventHandler(this.StartCompute3_btn_Click);
+            // 
+            // RLC2_Im1_TB
+            // 
+            this.RLC2_Im1_TB.Location = new System.Drawing.Point(24, 189);
+            this.RLC2_Im1_TB.Name = "RLC2_Im1_TB";
+            this.RLC2_Im1_TB.Size = new System.Drawing.Size(224, 31);
+            this.RLC2_Im1_TB.TabIndex = 6;
+            // 
+            // RLC2_T
+            // 
+            this.RLC2_T.AutoSize = true;
+            this.RLC2_T.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.RLC2_T.Location = new System.Drawing.Point(24, 101);
+            this.RLC2_T.Name = "RLC2_T";
+            this.RLC2_T.Size = new System.Drawing.Size(70, 20);
+            this.RLC2_T.TabIndex = 30;
+            this.RLC2_T.Text = "周期(ms)";
+            // 
+            // RLC2_Im1
+            // 
+            this.RLC2_Im1.AutoSize = true;
+            this.RLC2_Im1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.RLC2_Im1.Location = new System.Drawing.Point(24, 166);
+            this.RLC2_Im1.Name = "RLC2_Im1";
+            this.RLC2_Im1.Size = new System.Drawing.Size(120, 20);
+            this.RLC2_Im1.TabIndex = 32;
+            this.RLC2_Im1.Text = "电流第一峰值(A)";
+            // 
+            // RLC2_T_TB
+            // 
+            this.RLC2_T_TB.Location = new System.Drawing.Point(24, 124);
+            this.RLC2_T_TB.Name = "RLC2_T_TB";
+            this.RLC2_T_TB.Size = new System.Drawing.Size(224, 31);
+            this.RLC2_T_TB.TabIndex = 5;
+            // 
             // RLC_Compute
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1464, 715);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(1777, 715);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.RLC_GB2);
             this.Controls.Add(this.RLC_GB);
             this.Controls.Add(this.label1);
@@ -328,6 +461,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.RLC_Chart)).EndInit();
             this.RLC_GB2.ResumeLayout(false);
             this.RLC_GB2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -361,5 +496,17 @@
         private System.Windows.Forms.TextBox RLC_F_TB;
         private System.Windows.Forms.TextBox RLC_Result2_TB;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox RLC2_Im2_TB;
+        private System.Windows.Forms.Label RLC2_Im2;
+        private System.Windows.Forms.TextBox RLC_Result3_TB;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox RLC2_C_TB;
+        private System.Windows.Forms.Label RLC2_C;
+        private System.Windows.Forms.Button StartCompute3_btn;
+        private System.Windows.Forms.TextBox RLC2_Im1_TB;
+        private System.Windows.Forms.Label RLC2_T;
+        private System.Windows.Forms.Label RLC2_Im1;
+        private System.Windows.Forms.TextBox RLC2_T_TB;
     }
 }

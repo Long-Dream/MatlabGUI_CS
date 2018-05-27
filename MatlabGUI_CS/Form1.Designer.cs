@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Title title7 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Title title8 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.Title = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -47,6 +47,14 @@
             this.TypeSelect_L = new System.Windows.Forms.RadioButton();
             this.TypeSelect_LC = new System.Windows.Forms.RadioButton();
             this.initInput = new System.Windows.Forms.GroupBox();
+            this.ZeroCrossing_F_TB = new System.Windows.Forms.TextBox();
+            this.ZeroCrossing_F_Label = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.ZeroCrossing_L_TB = new System.Windows.Forms.TextBox();
+            this.ZeroCrossing_L_Label = new System.Windows.Forms.Label();
+            this.ZeroCrossing_C_TB = new System.Windows.Forms.TextBox();
+            this.ZeroCrossing_C_Label = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.setDefault_btn = new System.Windows.Forms.Button();
             this.Discharge_R_TB = new System.Windows.Forms.TextBox();
             this.applyDefault_btn = new System.Windows.Forms.Button();
@@ -76,6 +84,8 @@
             this.OpenRLC_btn = new System.Windows.Forms.Button();
             this.saveToFile_btn = new System.Windows.Forms.Button();
             this.OpenCmp_btn = new System.Windows.Forms.Button();
+            this.ThyristorTime_TB = new System.Windows.Forms.TextBox();
+            this.ThyristorTime_Label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.TypeSelect.SuspendLayout();
@@ -89,45 +99,45 @@
             // 
             this.Title.AutoSize = true;
             this.Title.Font = new System.Drawing.Font("微软雅黑", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Title.Location = new System.Drawing.Point(519, 21);
+            this.Title.Location = new System.Drawing.Point(508, 20);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(604, 50);
+            this.Title.Size = new System.Drawing.Size(364, 50);
             this.Title.TabIndex = 1;
-            this.Title.Text = "失超保护开关的仿真_Demo_v0.07";
+            this.Title.Text = "失超保护开关的仿真";
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(560, 89);
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
+            this.chart1.Location = new System.Drawing.Point(517, 88);
             this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(596, 534);
+            this.chart1.Size = new System.Drawing.Size(544, 532);
             this.chart1.TabIndex = 4;
             this.chart1.Text = "chart1";
-            title1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            title1.Name = "Title1";
-            title1.Text = "仿真电流波形_宏观";
-            this.chart1.Titles.Add(title1);
+            title5.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            title5.Name = "Title1";
+            title5.Text = "仿真电流波形_整体";
+            this.chart1.Titles.Add(title5);
             // 
             // chart2
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea2);
-            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend2.Name = "Legend1";
-            this.chart2.Legends.Add(legend2);
-            this.chart2.Location = new System.Drawing.Point(560, 89);
+            chartArea6.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea6);
+            legend6.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend6.Name = "Legend1";
+            this.chart2.Legends.Add(legend6);
+            this.chart2.Location = new System.Drawing.Point(517, 87);
             this.chart2.Name = "chart2";
-            this.chart2.Size = new System.Drawing.Size(596, 534);
+            this.chart2.Size = new System.Drawing.Size(544, 533);
             this.chart2.TabIndex = 8;
             this.chart2.Text = "chart2";
-            title2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            title2.Name = "Title1";
-            title2.Text = "仿真电流波形_微观";
-            this.chart2.Titles.Add(title2);
+            title6.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            title6.Name = "Title1";
+            title6.Text = "仿真电流波形_换流附近";
+            this.chart2.Titles.Add(title6);
             // 
             // TypeSelect
             // 
@@ -136,7 +146,7 @@
             this.TypeSelect.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.TypeSelect.Location = new System.Drawing.Point(21, 88);
             this.TypeSelect.Name = "TypeSelect";
-            this.TypeSelect.Size = new System.Drawing.Size(266, 129);
+            this.TypeSelect.Size = new System.Drawing.Size(223, 89);
             this.TypeSelect.TabIndex = 11;
             this.TypeSelect.TabStop = false;
             this.TypeSelect.Text = "仿真类型选择";
@@ -144,9 +154,10 @@
             // TypeSelect_L
             // 
             this.TypeSelect_L.AutoSize = true;
-            this.TypeSelect_L.Location = new System.Drawing.Point(24, 83);
+            this.TypeSelect_L.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TypeSelect_L.Location = new System.Drawing.Point(15, 60);
             this.TypeSelect_L.Name = "TypeSelect_L";
-            this.TypeSelect_L.Size = new System.Drawing.Size(218, 29);
+            this.TypeSelect_L.Size = new System.Drawing.Size(175, 24);
             this.TypeSelect_L.TabIndex = 13;
             this.TypeSelect_L.Text = "失超电感仿真——L源";
             this.TypeSelect_L.UseVisualStyleBackColor = true;
@@ -156,9 +167,10 @@
             // 
             this.TypeSelect_LC.AutoSize = true;
             this.TypeSelect_LC.Checked = true;
-            this.TypeSelect_LC.Location = new System.Drawing.Point(24, 43);
+            this.TypeSelect_LC.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TypeSelect_LC.Location = new System.Drawing.Point(15, 30);
             this.TypeSelect_LC.Name = "TypeSelect_LC";
-            this.TypeSelect_LC.Size = new System.Drawing.Size(231, 29);
+            this.TypeSelect_LC.Size = new System.Drawing.Size(185, 24);
             this.TypeSelect_LC.TabIndex = 12;
             this.TypeSelect_LC.TabStop = true;
             this.TypeSelect_LC.Text = "实验装置仿真——LC源";
@@ -167,6 +179,16 @@
             // 
             // initInput
             // 
+            this.initInput.Controls.Add(this.ThyristorTime_TB);
+            this.initInput.Controls.Add(this.ThyristorTime_Label);
+            this.initInput.Controls.Add(this.ZeroCrossing_F_TB);
+            this.initInput.Controls.Add(this.ZeroCrossing_F_Label);
+            this.initInput.Controls.Add(this.label5);
+            this.initInput.Controls.Add(this.ZeroCrossing_L_TB);
+            this.initInput.Controls.Add(this.ZeroCrossing_L_Label);
+            this.initInput.Controls.Add(this.ZeroCrossing_C_TB);
+            this.initInput.Controls.Add(this.ZeroCrossing_C_Label);
+            this.initInput.Controls.Add(this.label1);
             this.initInput.Controls.Add(this.setDefault_btn);
             this.initInput.Controls.Add(this.Discharge_R_TB);
             this.initInput.Controls.Add(this.applyDefault_btn);
@@ -176,39 +198,112 @@
             this.initInput.Controls.Add(this.Source_LorC_TB);
             this.initInput.Controls.Add(this.Source_LorC_Label);
             this.initInput.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.initInput.Location = new System.Drawing.Point(21, 223);
+            this.initInput.Location = new System.Drawing.Point(21, 183);
             this.initInput.Name = "initInput";
-            this.initInput.Size = new System.Drawing.Size(266, 440);
+            this.initInput.Size = new System.Drawing.Size(223, 508);
             this.initInput.TabIndex = 12;
             this.initInput.TabStop = false;
             this.initInput.Text = "初始参数确定";
             // 
+            // ZeroCrossing_F_TB
+            // 
+            this.ZeroCrossing_F_TB.Location = new System.Drawing.Point(91, 396);
+            this.ZeroCrossing_F_TB.Name = "ZeroCrossing_F_TB";
+            this.ZeroCrossing_F_TB.Size = new System.Drawing.Size(105, 31);
+            this.ZeroCrossing_F_TB.TabIndex = 5;
+            // 
+            // ZeroCrossing_F_Label
+            // 
+            this.ZeroCrossing_F_Label.AutoSize = true;
+            this.ZeroCrossing_F_Label.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ZeroCrossing_F_Label.Location = new System.Drawing.Point(13, 401);
+            this.ZeroCrossing_F_Label.Name = "ZeroCrossing_F_Label";
+            this.ZeroCrossing_F_Label.Size = new System.Drawing.Size(68, 20);
+            this.ZeroCrossing_F_Label.TabIndex = 28;
+            this.ZeroCrossing_F_Label.Text = "频率(Hz)";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Location = new System.Drawing.Point(13, 293);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(174, 19);
+            this.label5.TabIndex = 27;
+            this.label5.Text = "若全填，则以前两项为准";
+            // 
+            // ZeroCrossing_L_TB
+            // 
+            this.ZeroCrossing_L_TB.Location = new System.Drawing.Point(91, 359);
+            this.ZeroCrossing_L_TB.Name = "ZeroCrossing_L_TB";
+            this.ZeroCrossing_L_TB.Size = new System.Drawing.Size(105, 31);
+            this.ZeroCrossing_L_TB.TabIndex = 4;
+            this.ZeroCrossing_L_TB.Text = "5";
+            // 
+            // ZeroCrossing_L_Label
+            // 
+            this.ZeroCrossing_L_Label.AutoSize = true;
+            this.ZeroCrossing_L_Label.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ZeroCrossing_L_Label.Location = new System.Drawing.Point(13, 364);
+            this.ZeroCrossing_L_Label.Name = "ZeroCrossing_L_Label";
+            this.ZeroCrossing_L_Label.Size = new System.Drawing.Size(70, 20);
+            this.ZeroCrossing_L_Label.TabIndex = 25;
+            this.ZeroCrossing_L_Label.Text = "电感(μH)";
+            // 
+            // ZeroCrossing_C_TB
+            // 
+            this.ZeroCrossing_C_TB.Location = new System.Drawing.Point(91, 322);
+            this.ZeroCrossing_C_TB.Name = "ZeroCrossing_C_TB";
+            this.ZeroCrossing_C_TB.Size = new System.Drawing.Size(105, 31);
+            this.ZeroCrossing_C_TB.TabIndex = 3;
+            this.ZeroCrossing_C_TB.Text = "20";
+            // 
+            // ZeroCrossing_C_Label
+            // 
+            this.ZeroCrossing_C_Label.AutoSize = true;
+            this.ZeroCrossing_C_Label.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ZeroCrossing_C_Label.Location = new System.Drawing.Point(13, 327);
+            this.ZeroCrossing_C_Label.Name = "ZeroCrossing_C_Label";
+            this.ZeroCrossing_C_Label.Size = new System.Drawing.Size(71, 20);
+            this.ZeroCrossing_C_Label.TabIndex = 23;
+            this.ZeroCrossing_C_Label.Text = "电容(mF)";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(13, 272);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(204, 19);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "过零回路参数设置（三填二）";
+            // 
             // setDefault_btn
             // 
             this.setDefault_btn.Font = new System.Drawing.Font("微软雅黑", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.setDefault_btn.Location = new System.Drawing.Point(132, 379);
+            this.setDefault_btn.Location = new System.Drawing.Point(11, 447);
             this.setDefault_btn.Name = "setDefault_btn";
-            this.setDefault_btn.Size = new System.Drawing.Size(110, 49);
-            this.setDefault_btn.TabIndex = 14;
+            this.setDefault_btn.Size = new System.Drawing.Size(92, 52);
+            this.setDefault_btn.TabIndex = 6;
             this.setDefault_btn.Text = "按当前数据设置默认值";
             this.setDefault_btn.UseVisualStyleBackColor = true;
             this.setDefault_btn.Click += new System.EventHandler(this.setDefault_btn_Click);
             // 
             // Discharge_R_TB
             // 
-            this.Discharge_R_TB.Location = new System.Drawing.Point(26, 223);
+            this.Discharge_R_TB.Location = new System.Drawing.Point(14, 176);
             this.Discharge_R_TB.Name = "Discharge_R_TB";
-            this.Discharge_R_TB.Size = new System.Drawing.Size(216, 31);
-            this.Discharge_R_TB.TabIndex = 19;
+            this.Discharge_R_TB.Size = new System.Drawing.Size(163, 31);
+            this.Discharge_R_TB.TabIndex = 2;
             this.Discharge_R_TB.Text = "0.1";
             // 
             // applyDefault_btn
             // 
-            this.applyDefault_btn.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.applyDefault_btn.Location = new System.Drawing.Point(18, 379);
+            this.applyDefault_btn.Font = new System.Drawing.Font("微软雅黑", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.applyDefault_btn.Location = new System.Drawing.Point(109, 447);
             this.applyDefault_btn.Name = "applyDefault_btn";
-            this.applyDefault_btn.Size = new System.Drawing.Size(108, 49);
-            this.applyDefault_btn.TabIndex = 13;
+            this.applyDefault_btn.Size = new System.Drawing.Size(93, 52);
+            this.applyDefault_btn.TabIndex = 7;
             this.applyDefault_btn.Text = "恢复默认值";
             this.applyDefault_btn.UseVisualStyleBackColor = true;
             this.applyDefault_btn.Click += new System.EventHandler(this.applyDefault_btn_Click);
@@ -216,101 +311,104 @@
             // Discharge_R_Label
             // 
             this.Discharge_R_Label.AutoSize = true;
-            this.Discharge_R_Label.Location = new System.Drawing.Point(21, 195);
+            this.Discharge_R_Label.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Discharge_R_Label.Location = new System.Drawing.Point(14, 153);
             this.Discharge_R_Label.Name = "Discharge_R_Label";
-            this.Discharge_R_Label.Size = new System.Drawing.Size(163, 25);
+            this.Discharge_R_Label.Size = new System.Drawing.Size(128, 20);
             this.Discharge_R_Label.TabIndex = 18;
             this.Discharge_R_Label.Text = "移能电阻_阻值(Ω)";
             // 
             // VCB_C_TB
             // 
-            this.VCB_C_TB.Location = new System.Drawing.Point(24, 149);
+            this.VCB_C_TB.Location = new System.Drawing.Point(14, 119);
             this.VCB_C_TB.Name = "VCB_C_TB";
-            this.VCB_C_TB.Size = new System.Drawing.Size(216, 31);
-            this.VCB_C_TB.TabIndex = 17;
+            this.VCB_C_TB.Size = new System.Drawing.Size(165, 31);
+            this.VCB_C_TB.TabIndex = 1;
             this.VCB_C_TB.Text = "-10000";
             // 
             // VCB_C_Label
             // 
             this.VCB_C_Label.AutoSize = true;
-            this.VCB_C_Label.Location = new System.Drawing.Point(19, 121);
+            this.VCB_C_Label.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.VCB_C_Label.Location = new System.Drawing.Point(14, 96);
             this.VCB_C_Label.Name = "VCB_C_Label";
-            this.VCB_C_Label.Size = new System.Drawing.Size(236, 25);
+            this.VCB_C_Label.Size = new System.Drawing.Size(185, 20);
             this.VCB_C_Label.TabIndex = 16;
             this.VCB_C_Label.Text = "VCB过零_初始电容电压(V)";
             // 
             // Source_LorC_TB
             // 
-            this.Source_LorC_TB.Location = new System.Drawing.Point(24, 72);
+            this.Source_LorC_TB.Location = new System.Drawing.Point(14, 59);
             this.Source_LorC_TB.Name = "Source_LorC_TB";
-            this.Source_LorC_TB.Size = new System.Drawing.Size(216, 31);
-            this.Source_LorC_TB.TabIndex = 13;
+            this.Source_LorC_TB.Size = new System.Drawing.Size(166, 31);
+            this.Source_LorC_TB.TabIndex = 0;
             this.Source_LorC_TB.Text = "10000";
             // 
             // Source_LorC_Label
             // 
             this.Source_LorC_Label.AutoSize = true;
-            this.Source_LorC_Label.Location = new System.Drawing.Point(19, 44);
+            this.Source_LorC_Label.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Source_LorC_Label.Location = new System.Drawing.Point(14, 36);
             this.Source_LorC_Label.Name = "Source_LorC_Label";
-            this.Source_LorC_Label.Size = new System.Drawing.Size(202, 25);
+            this.Source_LorC_Label.Size = new System.Drawing.Size(159, 20);
             this.Source_LorC_Label.TabIndex = 0;
             this.Source_LorC_Label.Text = "LC源_初始电容电压(V)";
             // 
             // StartSimulink_btn
             // 
             this.StartSimulink_btn.Font = new System.Drawing.Font("微软雅黑", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.StartSimulink_btn.Location = new System.Drawing.Point(303, 613);
+            this.StartSimulink_btn.Location = new System.Drawing.Point(250, 621);
             this.StartSimulink_btn.Name = "StartSimulink_btn";
-            this.StartSimulink_btn.Size = new System.Drawing.Size(251, 57);
-            this.StartSimulink_btn.TabIndex = 13;
+            this.StartSimulink_btn.Size = new System.Drawing.Size(261, 57);
+            this.StartSimulink_btn.TabIndex = 0;
             this.StartSimulink_btn.Text = "开始仿真";
             this.StartSimulink_btn.UseVisualStyleBackColor = true;
             this.StartSimulink_btn.Click += new System.EventHandler(this.StartSimulink_btn_Click);
             // 
             // chart4
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart4.ChartAreas.Add(chartArea3);
-            legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend3.Name = "Legend1";
-            this.chart4.Legends.Add(legend3);
-            this.chart4.Location = new System.Drawing.Point(1173, 88);
+            chartArea7.Name = "ChartArea1";
+            this.chart4.ChartAreas.Add(chartArea7);
+            legend7.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend7.Name = "Legend1";
+            this.chart4.Legends.Add(legend7);
+            this.chart4.Location = new System.Drawing.Point(1077, 87);
             this.chart4.Name = "chart4";
-            this.chart4.Size = new System.Drawing.Size(594, 534);
+            this.chart4.Size = new System.Drawing.Size(544, 532);
             this.chart4.TabIndex = 10;
             this.chart4.Text = "chart4";
-            title3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title3.Name = "Title1";
-            title3.Text = "仿真电压波形_微观";
-            this.chart4.Titles.Add(title3);
+            title7.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title7.Name = "Title1";
+            title7.Text = "仿真电压波形_换流附近";
+            this.chart4.Titles.Add(title7);
             // 
             // chart3
             // 
-            chartArea4.AxisY.IsStartedFromZero = false;
-            chartArea4.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea4);
-            legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend4.Name = "Legend1";
-            this.chart3.Legends.Add(legend4);
-            this.chart3.Location = new System.Drawing.Point(1171, 89);
+            chartArea8.AxisY.IsStartedFromZero = false;
+            chartArea8.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea8);
+            legend8.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend8.Name = "Legend1";
+            this.chart3.Legends.Add(legend8);
+            this.chart3.Location = new System.Drawing.Point(1077, 88);
             this.chart3.Name = "chart3";
-            this.chart3.Size = new System.Drawing.Size(596, 533);
+            this.chart3.Size = new System.Drawing.Size(544, 532);
             this.chart3.TabIndex = 9;
             this.chart3.Text = "chart3";
-            title4.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title4.Name = "Title1";
-            title4.Text = "仿真电压波形_宏观";
-            this.chart3.Titles.Add(title4);
+            title8.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title8.Name = "Title1";
+            title8.Text = "仿真电压波形_整体";
+            this.chart3.Titles.Add(title8);
             // 
             // toggleView_btn
             // 
             this.toggleView_btn.Enabled = false;
             this.toggleView_btn.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.toggleView_btn.Location = new System.Drawing.Point(566, 636);
+            this.toggleView_btn.Location = new System.Drawing.Point(700, 644);
             this.toggleView_btn.Name = "toggleView_btn";
-            this.toggleView_btn.Size = new System.Drawing.Size(136, 34);
+            this.toggleView_btn.Size = new System.Drawing.Size(152, 34);
             this.toggleView_btn.TabIndex = 14;
-            this.toggleView_btn.Text = "细致观察";
+            this.toggleView_btn.Text = "显示换流附近波形";
             this.toggleView_btn.UseVisualStyleBackColor = true;
             this.toggleView_btn.Click += new System.EventHandler(this.toggleView_btn_Click);
             // 
@@ -330,9 +428,9 @@
             this.groupBox1.Controls.Add(this.checkBox2);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox1.Location = new System.Drawing.Point(303, 89);
+            this.groupBox1.Location = new System.Drawing.Point(250, 88);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(257, 506);
+            this.groupBox1.Size = new System.Drawing.Size(261, 506);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "选择要显示的波形";
@@ -340,7 +438,7 @@
             // viewNone_btn
             // 
             this.viewNone_btn.Enabled = false;
-            this.viewNone_btn.Location = new System.Drawing.Point(162, 454);
+            this.viewNone_btn.Location = new System.Drawing.Point(166, 452);
             this.viewNone_btn.Name = "viewNone_btn";
             this.viewNone_btn.Size = new System.Drawing.Size(89, 38);
             this.viewNone_btn.TabIndex = 12;
@@ -351,7 +449,7 @@
             // viewAll_btn
             // 
             this.viewAll_btn.Enabled = false;
-            this.viewAll_btn.Location = new System.Drawing.Point(60, 454);
+            this.viewAll_btn.Location = new System.Drawing.Point(71, 452);
             this.viewAll_btn.Name = "viewAll_btn";
             this.viewAll_btn.Size = new System.Drawing.Size(89, 38);
             this.viewAll_btn.TabIndex = 11;
@@ -527,9 +625,9 @@
             // OpenRLC_btn
             // 
             this.OpenRLC_btn.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.OpenRLC_btn.Location = new System.Drawing.Point(1010, 636);
+            this.OpenRLC_btn.Location = new System.Drawing.Point(1198, 644);
             this.OpenRLC_btn.Name = "OpenRLC_btn";
-            this.OpenRLC_btn.Size = new System.Drawing.Size(181, 34);
+            this.OpenRLC_btn.Size = new System.Drawing.Size(203, 34);
             this.OpenRLC_btn.TabIndex = 16;
             this.OpenRLC_btn.Text = "工具——RLC参数计算";
             this.OpenRLC_btn.UseVisualStyleBackColor = true;
@@ -539,7 +637,7 @@
             // 
             this.saveToFile_btn.Enabled = false;
             this.saveToFile_btn.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.saveToFile_btn.Location = new System.Drawing.Point(719, 636);
+            this.saveToFile_btn.Location = new System.Drawing.Point(869, 644);
             this.saveToFile_btn.Name = "saveToFile_btn";
             this.saveToFile_btn.Size = new System.Drawing.Size(150, 34);
             this.saveToFile_btn.TabIndex = 17;
@@ -550,19 +648,37 @@
             // OpenCmp_btn
             // 
             this.OpenCmp_btn.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.OpenCmp_btn.Location = new System.Drawing.Point(1209, 636);
+            this.OpenCmp_btn.Location = new System.Drawing.Point(1418, 644);
             this.OpenCmp_btn.Name = "OpenCmp_btn";
-            this.OpenCmp_btn.Size = new System.Drawing.Size(181, 34);
+            this.OpenCmp_btn.Size = new System.Drawing.Size(203, 34);
             this.OpenCmp_btn.TabIndex = 18;
             this.OpenCmp_btn.Text = "工具——波形比较工具";
             this.OpenCmp_btn.UseVisualStyleBackColor = true;
             this.OpenCmp_btn.Click += new System.EventHandler(this.OpenCmp_btn_Click);
             // 
+            // ThyristorTime_TB
+            // 
+            this.ThyristorTime_TB.Location = new System.Drawing.Point(14, 233);
+            this.ThyristorTime_TB.Name = "ThyristorTime_TB";
+            this.ThyristorTime_TB.Size = new System.Drawing.Size(163, 31);
+            this.ThyristorTime_TB.TabIndex = 29;
+            this.ThyristorTime_TB.Text = "0.008";
+            // 
+            // ThyristorTime_Label
+            // 
+            this.ThyristorTime_Label.AutoSize = true;
+            this.ThyristorTime_Label.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ThyristorTime_Label.Location = new System.Drawing.Point(14, 210);
+            this.ThyristorTime_Label.Name = "ThyristorTime_Label";
+            this.ThyristorTime_Label.Size = new System.Drawing.Size(131, 20);
+            this.ThyristorTime_Label.TabIndex = 30;
+            this.ThyristorTime_Label.Text = "晶闸管导通时间(s)";
+            // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1789, 703);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(1650, 703);
             this.Controls.Add(this.OpenCmp_btn);
             this.Controls.Add(this.saveToFile_btn);
             this.Controls.Add(this.chart3);
@@ -630,6 +746,16 @@
         private System.Windows.Forms.Button applyDefault_btn;
         private System.Windows.Forms.Button saveToFile_btn;
         private System.Windows.Forms.Button OpenCmp_btn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox ZeroCrossing_F_TB;
+        private System.Windows.Forms.Label ZeroCrossing_F_Label;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox ZeroCrossing_L_TB;
+        private System.Windows.Forms.Label ZeroCrossing_L_Label;
+        private System.Windows.Forms.TextBox ZeroCrossing_C_TB;
+        private System.Windows.Forms.Label ZeroCrossing_C_Label;
+        private System.Windows.Forms.TextBox ThyristorTime_TB;
+        private System.Windows.Forms.Label ThyristorTime_Label;
     }
 }
 

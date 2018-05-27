@@ -127,6 +127,7 @@ namespace MatlabGUI_CS {
             // 进行参数的显示
             RLC_Result_TB.Text = "";
             RLC_Result_TB.Text += "振荡频率 f(Hz) :  "+ (1 / (2 * Math.PI * Math.Sqrt(data.L * data.C))).ToString("F4") + "\r\n";
+            RLC_Result_TB.Text += "振荡周期 T(ms) :  " + (1 / (1 / (2 * Math.PI * Math.Sqrt(data.L * data.C))) * 1000).ToString("F4") + "\r\n";
             RLC_Result_TB.Text += "振荡类型  :  " + ((data.C > 4 * data.L / (data.R * data.R)) ? "过阻尼" :
                 data.C == 4 * data.L / (data.R * data.R) ? "临界阻尼" : "欠阻尼") + "\r\n";
             double A = 0;       // 半波幅值
@@ -178,8 +179,52 @@ namespace MatlabGUI_CS {
             double C = 1 / (4 * Math.PI * Math.PI * d_f * d_f * L);
 
             // 输出结果
-            RLC_Result2_TB.Text = "计算出的电感 L 的取值为：" + L + " H\r\n";
-            RLC_Result2_TB.Text += "计算出的电容 C 的取值为：" + C + " F\r\n";
+            RLC_Result2_TB.Text = "计算出的电感 L 的取值为：\r\n" + L.ToString("F8") + " H\r\n";
+            RLC_Result2_TB.Text += "计算出的电容 C 的取值为：\r\n" + C.ToString("F8") + " F\r\n";
+
+        }
+
+
+        // 进行未知RLC的情况下，计算电容C 电感L 电阻R
+        // 由于并不需要调用 matlab 引擎，故无需禁用按钮
+        private void StartCompute3_btn_Click(object sender, EventArgs e) {
+
+            double? C, Im1, Im2, T;
+
+            // 获取所输入的数据
+            C = Main.checkTextbox(RLC2_C_TB, RLC2_C);
+            T = Main.checkTextbox(RLC2_T_TB, RLC2_T);
+            Im1 = Main.checkTextbox(RLC2_Im1_TB, RLC2_Im1);
+            Im2 = Main.checkTextbox(RLC2_Im2_TB, RLC2_Im2);
+
+            // 判断合法性
+            if (C == null || Im1 == null || Im2 == null || T == null) {
+                return;
+            }
+
+            // 对于 RLC 的特殊要求：不能为0
+            if (C <= 0 || T <= 0) {
+                MessageBox.Show("在计算参数时，要求所给参数均大于0，请重新输入");
+                return;
+            }
+
+            double d_C = Convert.ToDouble(C) / 1000;    // 毫法 转换成 法
+            double d_Im1 = Convert.ToDouble(Im1);
+            double d_Im2 = Convert.ToDouble(Im2);
+            double d_T = Convert.ToDouble(T) / 1000;    // 毫秒 转换成 秒
+
+            //  X = r/2L = 2/T * ln(abs(I1/I2))       w = 2π / T = √(w0^2 - x^2)
+
+            // 开始计算参数
+            double X, w0, R, L;
+            X = 2 / d_T * Math.Log(Math.Abs(d_Im1/d_Im2), Math.E);
+            w0 = Math.Sqrt((2 * Math.PI / d_T) * (2 * Math.PI / d_T) + X * X);
+            L = 1 / (d_C * w0 * w0);
+            R = 2 * L * X;
+
+            // 输出结果
+            RLC_Result3_TB.Text = "计算出的电感 L 的取值为：\r\n" + (L * 1e6).ToString("F8") + " μH\r\n";
+            RLC_Result3_TB.Text += "计算出的电阻 R 的取值为：\r\n" + (R * 1e3).ToString("F8") + " mΩ\r\n";
 
         }
     }
